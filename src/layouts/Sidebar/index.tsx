@@ -2,8 +2,8 @@ import React from 'react';
 import { Layout, Menu } from 'antd';
 import type { MenuProps } from 'antd';
 import { useToggle } from 'react-use';
-import { useNavigate } from 'react-router-dom';
-import { HomeOutlined, KubernetesOutlined, AimOutlined, NotificationOutlined } from '@ant-design/icons';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { HomeOutlined, KubernetesOutlined, AimOutlined, NotificationOutlined, MonitorOutlined } from '@ant-design/icons';
 
 import useStyles from './styles.tsx';
 
@@ -28,13 +28,15 @@ const getItem = (
 const items: MenuItem[] = [
   getItem('Dashboard', '/', <HomeOutlined />),
   getItem('Cluster Data', '/cluster-data', <KubernetesOutlined />),
-  getItem('Ping', '/ping', <AimOutlined />),
+  getItem('Monitors', '/monitors', <MonitorOutlined />),
+  getItem('Availability Ping', '/ping', <AimOutlined />),
   getItem('Notifications', '/notifications', <NotificationOutlined />)
 ];
 
 const Sidebar = () => {
   const { styles } = useStyles();
   const navigate = useNavigate();
+  const location = useLocation();
   const [collapsed, toggleCollapsed] = useToggle(false);
 
   return (
@@ -46,10 +48,9 @@ const Sidebar = () => {
         theme={'light'}
       >
         <Menu
-          defaultSelectedKeys={['/']}
+          defaultSelectedKeys={[location.pathname]}
           mode="inline"
           items={items}
-          className={styles.menu}
           onClick={({key}) => navigate(key)}
         />
       </Sider>

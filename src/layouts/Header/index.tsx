@@ -1,6 +1,5 @@
 import {Layout, Space, Typography, Flex, Avatar, Divider, Button} from 'antd';
 import { ToolOutlined, UserOutlined } from '@ant-design/icons';
-import { purple } from '@ant-design/colors';
 
 import useStyles from './styles.tsx';
 
@@ -21,7 +20,7 @@ const Header = () => {
           <Avatar
             size="large"
             icon={<UserOutlined />}
-            style={{ background: purple[2] }}
+            style={{ background: theme.colorBgSpotlight }}
           />
           <Divider
             type="vertical"

@@ -9,11 +9,6 @@ const useStyles = createStyles(({ token, css }) => ({
           border-right-style: solid;
       }
   `,
-  menu: css`
-      && {
-          padding-top: 48px;
-      }
-  `,
   divider: css`
       && {
           margin-left: 10px;
