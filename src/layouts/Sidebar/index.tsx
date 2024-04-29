@@ -30,7 +30,7 @@ const items: MenuItem[] = [
   getItem('Cluster Data', '/cluster-data', <KubernetesOutlined />),
   getItem('Monitors', '/monitors', <MonitorOutlined />),
   getItem('Availability Ping', '/ping', <AimOutlined />),
-  getItem('Notifications', '/notifications', <NotificationOutlined />)
+  getItem('Notifications', '/notifications', <NotificationOutlined />),
 ];
 
 const Sidebar = () => {

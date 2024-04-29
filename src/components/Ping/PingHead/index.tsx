@@ -4,10 +4,9 @@ import {Flex, Typography} from 'antd';
 import StatusIndicator from '@/components/StatusIndicator';
 import useStyles from './styles.tsx';
 import {usePingMetricsById} from '@/hooks/ping-metrics.ts';
+import {pingId} from '@/utils/consts.ts';
 
 const { Title, Text } = Typography;
-
-const pingId = 'd4546a4ce2124eabb1951930d04235fa';
 
 const PingHead = () => {
   const { styles, theme } = useStyles();

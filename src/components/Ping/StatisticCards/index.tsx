@@ -4,13 +4,13 @@ import dayjs from 'dayjs';
 
 import useStyles from './styles';
 import {usePingMetricsById} from '@/hooks/ping-metrics.ts';
-
-const pingId = 'd4546a4ce2124eabb1951930d04235fa';
+import {pingId} from '@/utils/consts.ts';
 
 const StatisticCards = () => {
   const { theme } = useStyles();
   const { data } = usePingMetricsById(pingId);
-  const successRate = 100;
+  const successRate = data?.metadata ?
+    (data.metadata.successful_checks / data.metadata.total_checks) * 100 : 0;
 
   const getTimeDiff = (pingTime: number | undefined, suffix = '') => {
     if (pingTime) {
@@ -40,7 +40,7 @@ const StatisticCards = () => {
           <Card bordered={false}>
             <Statistic
               title="Success Rate"
-              value={data?.metadata?.success_rate ?? '--'}
+              value={data?.metadata ? successRate : '--'}
               precision={2}
               valueStyle={{
                 color: successRate >= 80 ?

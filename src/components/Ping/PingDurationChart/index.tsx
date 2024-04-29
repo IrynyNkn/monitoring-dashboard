@@ -5,8 +5,7 @@ import dayjs from 'dayjs';
 
 import useStyles from './styles.tsx';
 import {usePingMetricsById} from '@/hooks/ping-metrics.ts';
-
-const pingId = 'd4546a4ce2124eabb1951930d04235fa';
+import {pingId} from '@/utils/consts.ts';
 
 const dateFormatter = (date: number) => {
   return dayjs(date).format('h:mm A'); //  DD/ddd
@@ -14,7 +13,7 @@ const dateFormatter = (date: number) => {
 
 const PingDurationLineChart = () => {
   const { styles } = useStyles();
-  const { data, error, isFetching } = usePingMetricsById(pingId);
+  const { data } = usePingMetricsById(pingId);
   const [metrics, setMetrics] = useState(data?.metrics);
 
   useEffect(() => {
@@ -40,8 +39,9 @@ const PingDurationLineChart = () => {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="time"
-              scale="time"
+              // scale="time"  // adds weird overflow
               tickFormatter={dateFormatter}
+              interval="preserveStartEnd"
             />
             <YAxis
               tickFormatter={(v) => `${v}ms`}

@@ -3,8 +3,7 @@ import {Flex, Button} from 'antd';
 import {PauseCircleOutlined, DeleteOutlined, ReloadOutlined, EditOutlined} from '@ant-design/icons';
 
 import {usePingMetricsById} from '@/hooks/ping-metrics.ts';
-
-const pingId = 'd4546a4ce2124eabb1951930d04235fa';
+import {pingId} from '@/utils/consts.ts';
 
 const PingActions = () => {
   const { refetch, isFetching } = usePingMetricsById(pingId);

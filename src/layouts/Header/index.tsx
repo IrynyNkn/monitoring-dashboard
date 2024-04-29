@@ -1,13 +1,23 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import {Layout, Space, Typography, Flex, Avatar, Divider, Button} from 'antd';
 import { ToolOutlined, UserOutlined } from '@ant-design/icons';
 
 import useStyles from './styles.tsx';
+import authStore from '@/store/authStore.ts';
 
 const { Header: HeaderBase } = Layout;
 const { Title } = Typography;
 
 const Header = () => {
   const { styles, theme } = useStyles();
+  const clearAuthData = authStore(s => s.clearAuthData);
+  const navigate = useNavigate();
+
+  const logout = () => {
+    clearAuthData();
+    navigate('/login');
+  };
 
   return (
     <HeaderBase className={styles.container}>
@@ -26,7 +36,7 @@ const Header = () => {
             type="vertical"
             className={styles.divider}
           />
-          <Button>Log Out</Button>
+          <Button onClick={logout}>Log Out</Button>
         </Flex>
       </Flex>
     </HeaderBase>

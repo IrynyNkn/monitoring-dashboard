@@ -13,6 +13,7 @@ export type PingMetricsResponseType = {
     'success_rate': number,
     'last_check_time': string,
     'first_check_time': string,
+    'successful_checks': number
   },
   metrics: PingType[]
 };
