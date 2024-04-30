@@ -5,22 +5,9 @@ import ProtectedRoute from '@/layouts/ProtectedRoute.tsx';
 
 import Home from '@/pages/Home';
 import Ping from '@/pages/PingPage';
-// import Dashboard from '@/pages/Dashboard';
 import Monitors from '@/pages/Monitors';
-import CreateMonitorPage from '@/pages/Monitors/CreateMonitor.tsx';
 import Login from '@/pages/Login';
 import Register from '@/pages/Register';
-
-// const router = createBrowserRouter([
-//   {
-//     path: '/ping',
-//     element: <Ping />,
-//   },
-//   {
-//     path: '/notifications',
-//     element: <Dashboard />,
-//   },
-// ]);
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,7 +16,6 @@ const router = createBrowserRouter(
         <Route index element={<Home />} />
         <Route path="/ping" element={<Ping />} />
         <Route path="/monitors" element={<Monitors />} />
-        <Route path="/monitors/create" element={<CreateMonitorPage />} />
       </Route>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />

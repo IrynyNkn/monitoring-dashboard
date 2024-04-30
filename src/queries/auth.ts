@@ -1,5 +1,5 @@
-import {BE_URL} from '@/utils/consts.ts';
-import {AuthResponseType} from '@/types/auth.ts';
+import {authStorageKey, BE_URL} from '@/utils/consts.ts';
+import {AuthFetchType, AuthResponseType, ExtendedError} from '@/types/auth.ts';
 
 export const login = async (d: {
   email: string,
@@ -53,4 +53,40 @@ export const register = async (d: {
   } catch (e) {
     console.error(e);
   }
+};
+
+export const getToken = () => {
+  try {
+    const authStorage = localStorage.getItem(authStorageKey);
+
+    if (authStorage) {
+      const authStorageObj = JSON.parse(authStorage);
+      return authStorageObj.state.token;
+    }
+  } catch (e) {
+    console.error('Parsing Token Error', e);
+    return null;
+  }
+};
+
+export const authFetch = async (...args: Parameters<typeof fetch>): Promise<AuthFetchType> => {
+  const response = await fetch(...args);
+
+  if (response.status === 401) {
+    throw new ExtendedError('unauthorized', response.status);
+  }
+
+  return { response, unauthorized: false };
+};
+
+export const createAuthFetch = (navigate: (to: string) => void) => async (...args: Parameters<typeof fetch>): Promise<AuthFetchType> => {
+  const response = await fetch(...args);
+
+  if (response.status === 401) {
+    localStorage.removeItem(authStorageKey);
+    navigate('/login');
+    return { response, unauthorized: true };
+  }
+
+  return { response, unauthorized: false };
 };

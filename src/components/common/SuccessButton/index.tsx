@@ -1,5 +1,5 @@
 import React, {ReactNode} from 'react';
-import {ConfigProvider} from 'antd';
+import { ConfigProvider, Button } from 'antd';
 import type {ButtonProps} from 'antd';
 import { green } from '@ant-design/colors';
 
@@ -7,7 +7,7 @@ type Props = ButtonProps & {
   children: ReactNode;
 };
 
-const SuccessButtonWrap = ({ children, ...props }: Props) => {
+const SuccessButton = ({ children, ...props }: Props) => {
   return (
     <ConfigProvider
       theme={{
@@ -20,9 +20,11 @@ const SuccessButtonWrap = ({ children, ...props }: Props) => {
         }
       }}
     >
-      {children}
+      <Button {...props}>
+        {children}
+      </Button>
     </ConfigProvider>
   );
 };
 
-export default SuccessButtonWrap;
+export default SuccessButton;

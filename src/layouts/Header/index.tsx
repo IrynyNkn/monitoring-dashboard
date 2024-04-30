@@ -5,6 +5,7 @@ import { ToolOutlined, UserOutlined } from '@ant-design/icons';
 
 import useStyles from './styles.tsx';
 import authStore from '@/store/authStore.ts';
+import {authStorageKey} from '@/utils/consts.ts';
 
 const { Header: HeaderBase } = Layout;
 const { Title } = Typography;
@@ -16,6 +17,7 @@ const Header = () => {
 
   const logout = () => {
     clearAuthData();
+    localStorage.removeItem(authStorageKey);
     navigate('/login');
   };
 

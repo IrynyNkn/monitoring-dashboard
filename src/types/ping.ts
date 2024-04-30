@@ -17,3 +17,23 @@ export type PingMetricsResponseType = {
   },
   metrics: PingType[]
 };
+
+export type PingListResponseType = {
+  icmp_pings: {
+    id: string;
+    host: string;
+    is_paused: boolean;
+    interval: number;
+  }[];
+};
+
+export type CreateIcmpPingFieldType = {
+  // name: string;
+  hostname: string;
+  period: number;
+};
+
+
+export type CreatePingResponseType = {
+  task_id: string;
+};

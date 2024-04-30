@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 import { UserType, AuthResponseType } from '@/types/auth.ts';
+import {authStorageKey} from '@/utils/consts.ts';
 
 type State = {
   token: string | undefined;
@@ -28,7 +29,7 @@ const authStore = create<State & Actions>()(
         })
     }),
     {
-      name: 'monitoring-auth-storage'
+      name: authStorageKey
     }
   )
 );
