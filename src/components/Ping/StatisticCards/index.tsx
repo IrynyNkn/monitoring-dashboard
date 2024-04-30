@@ -2,13 +2,16 @@ import React from 'react';
 import { Card, Col, Row, Statistic } from 'antd';
 import dayjs from 'dayjs';
 
-import useStyles from './styles';
-import {usePingMetricsById} from '@/hooks/ping-metrics.ts';
-import {pingId} from '@/utils/consts.ts';
+import {PingMetricsResponseType} from '@/types/ping.ts';
 
-const StatisticCards = () => {
+import useStyles from './styles';
+
+type Props = {
+  data: PingMetricsResponseType | undefined;
+};
+
+const StatisticCards = ({ data }: Props) => {
   const { theme } = useStyles();
-  const { data } = usePingMetricsById(pingId);
   const successRate = data?.metadata ?
     (data.metadata.successful_checks / data.metadata.total_checks) * 100 : 0;
 

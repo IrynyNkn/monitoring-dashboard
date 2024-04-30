@@ -6,7 +6,7 @@ export type PingType = {
 
 export type PingMetricsResponseType = {
   metadata: {
-    'ping_d': string,
+    'ping_id': string,
     hostname: string,
     'failed_checks': number,
     'total_checks': number,
@@ -18,13 +18,15 @@ export type PingMetricsResponseType = {
   metrics: PingType[]
 };
 
+export type PingItemDataType = {
+  id: string;
+  host: string;
+  is_paused: boolean;
+  interval: number;
+};
+
 export type PingListResponseType = {
-  icmp_pings: {
-    id: string;
-    host: string;
-    is_paused: boolean;
-    interval: number;
-  }[];
+  icmp_pings: PingItemDataType[];
 };
 
 export type CreateIcmpPingFieldType = {
@@ -36,4 +38,9 @@ export type CreateIcmpPingFieldType = {
 
 export type CreatePingResponseType = {
   task_id: string;
+};
+
+export type DeletePingResponseType = {
+  status: 'cancelled';
+  id: string;
 };

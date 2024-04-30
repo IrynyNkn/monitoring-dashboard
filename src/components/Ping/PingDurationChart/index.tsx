@@ -3,17 +3,20 @@ import { Typography } from 'antd';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import dayjs from 'dayjs';
 
+import {PingMetricsResponseType} from '@/types/ping.ts';
+
 import useStyles from './styles.tsx';
-import {usePingMetricsById} from '@/hooks/ping-metrics.ts';
-import {pingId} from '@/utils/consts.ts';
 
 const dateFormatter = (date: number) => {
   return dayjs(date).format('h:mm A'); //  DD/ddd
 };
 
-const PingDurationLineChart = () => {
+type Props = {
+  data: PingMetricsResponseType | undefined;
+};
+
+const PingDurationLineChart = ({ data }: Props) => {
   const { styles } = useStyles();
-  const { data } = usePingMetricsById(pingId);
   const [metrics, setMetrics] = useState(data?.metrics);
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 import { BE_URL } from '@/utils/consts.ts';
-import {CreatePingResponseType, PingListResponseType} from '@/types/ping.ts';
+import {CreatePingResponseType, DeletePingResponseType, PingListResponseType} from '@/types/ping.ts';
 import {authFetch, getToken} from '@/queries/auth.ts';
 import {AuthFetchType} from '@/types/auth.ts';
 
@@ -21,6 +21,28 @@ export const createIcmpPing = async (
         interval: d.interval,
         host: d.host,
       }),
+    });
+
+    if (req.unauthorized) {
+      return;
+    }
+
+    return await req.response.json();
+  } catch (e) {
+    console.error('Error on creating ping', e);
+  }
+};
+
+export const deleteIcmpPing = async (
+  id: string,
+  customFetch: (...args: Parameters<typeof fetch>) => Promise<AuthFetchType>
+): Promise<DeletePingResponseType | undefined> => {
+  try {
+    const req = await customFetch(`${BE_URL}/ping/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Token ${getToken()}`
+      },
     });
 
     if (req.unauthorized) {

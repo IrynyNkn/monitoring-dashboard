@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {useQuery} from '@tanstack/react-query';
-import {Button, Space, Table, type TableProps, Badge} from 'antd';
 import {Link} from 'react-router-dom';
+import {Badge, Button, Space, Table, type TableProps} from 'antd';
 
+import {PingItemDataType} from '@/types/ping.ts';
+import withAuth from '@/hooks/withAuth.ts';
+import {useQuery} from '@tanstack/react-query';
+import {getIcmpPingList} from '@/queries/ping-config.ts';
 import MainLayout from '@/layouts/MainLayout.tsx';
 import PageTitle from '@/components/common/PageTitle';
 import CreatePingModal from '@/components/Monitors/CreatePingModal.tsx';
-import withAuth from '@/hooks/withAuth.ts';
-import {getIcmpPingList} from '@/queries/ping-config.ts';
-import {PingItemDataType} from '@/types/ping.ts';
 
 const columns: TableProps<PingItemDataType>['columns'] = [
   {
@@ -40,14 +40,14 @@ const columns: TableProps<PingItemDataType>['columns'] = [
     key: 'action',
     render: (_, p) => (
       <Space size="middle">
-        <Button type="text" href={`/ping/${p.id}`}>Go to ping</Button>
+        <Link to={`/ping/${p.id}`}><Button type="text">Go to ping</Button></Link>
         <Button type="text" danger>Delete</Button>
       </Space>
     ),
   },
 ];
 
-const Monitors = () => {
+const IcmpPings = () => {
   const { data, error, isFetching } = withAuth(() => useQuery({
     queryKey: ['pings'],
     queryFn: () => getIcmpPingList(),
@@ -66,7 +66,7 @@ const Monitors = () => {
 
   return (
     <MainLayout>
-      <PageTitle>Monitors</PageTitle>
+      <PageTitle>ICMP Pings</PageTitle>
       <CreatePingModal />
       <Table
         columns={columns}
@@ -76,4 +76,4 @@ const Monitors = () => {
   );
 };
 
-export default Monitors;
+export default IcmpPings;

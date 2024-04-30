@@ -2,21 +2,25 @@ import React from 'react';
 import {Flex, Typography} from 'antd';
 
 import StatusIndicator from '@/components/StatusIndicator';
+import {PingMetricsResponseType} from '@/types/ping.ts';
+
 import useStyles from './styles.tsx';
-import {usePingMetricsById} from '@/hooks/ping-metrics.ts';
-import {pingId} from '@/utils/consts.ts';
 
 const { Title, Text } = Typography;
 
-const PingHead = () => {
+type Props = {
+  data: PingMetricsResponseType | undefined;
+  isFetching: boolean;
+};
+
+const PingHead = ({ data, isFetching }: Props) => {
   const { styles, theme } = useStyles();
-  const { data } = usePingMetricsById(pingId);
 
   const isUp = data?.metrics?.[data?.metrics?.length - 1]?.status === 'success';
 
   return (
     <Flex align="center" gap="middle" className={styles.wrap}>
-      <StatusIndicator isUp={isUp} />
+      <StatusIndicator isUp={isUp} isFetching={isFetching} />
       <div>
         <Title className={styles.title}>{data?.metadata?.hostname || '--'}</Title>
         <Flex gap="middle">

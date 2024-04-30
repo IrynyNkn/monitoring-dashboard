@@ -2,21 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import { Space, Table, Button } from 'antd';
 import type { TableProps } from 'antd';
+import {PingItemDataType} from '@/types/ping.ts';
 
-type DataType = {
-  key: string;
-  id: string;
-  hostname: string;
-  is_paused: boolean;
-  interval: number;
-}
-
-const columns: TableProps<DataType>['columns'] = [
+const columns: TableProps<PingItemDataType>['columns'] = [
   {
     title: 'Hostname',
     dataIndex: 'hostname',
     key: 'hostname',
-    render: (_, p) => <Link to={`/ping/${p.id}`}>{p.hostname}</Link>,
+    render: (_, p) => <Link to={`/ping/${p.id}`}>{p.host}</Link>,
   },
   {
     title: 'Check Interval',
@@ -41,15 +34,7 @@ const columns: TableProps<DataType>['columns'] = [
   },
 ];
 
-const data: DataType[] = [
-  // {
-  //   key: '1',
-  //   name: 'John Brown',
-  //   age: 32,
-  //   address: 'New York No. 1 Lake Park',
-  //   tags: ['nice', 'developer'],
-  // },
-];
+const data: PingItemDataType[] = [];
 
 const PingTable = () => {
   return (

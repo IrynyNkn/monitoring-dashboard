@@ -29,7 +29,10 @@ const items: MenuItem[] = [
   getItem('Dashboard', '/', <HomeOutlined />),
   getItem('Cluster Data', '/cluster-data', <KubernetesOutlined />),
   getItem('Monitors', '/monitors', <MonitorOutlined />),
-  getItem('Availability Ping', '/ping', <AimOutlined />),
+  getItem('Availability Pings', '/ping', <AimOutlined />, [
+    { key: '/icmp-pings', label: 'Icmp Pings'},
+    { key: '/http-pings', label: 'HTTP Pings'}
+  ]),
   getItem('Notifications', '/notifications', <NotificationOutlined />),
 ];
 
