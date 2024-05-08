@@ -3,8 +3,7 @@ import {Link} from 'react-router-dom';
 import {Badge, Button, Space, Table, type TableProps} from 'antd';
 
 import {PingItemDataType} from '@/types/ping.ts';
-import withAuth from '@/hooks/withAuth.ts';
-import {useQuery} from '@tanstack/react-query';
+import useWithAuth from '@/hooks/useWithAuth.ts';
 import {getIcmpPingList} from '@/queries/ping-config.ts';
 import MainLayout from '@/layouts/MainLayout.tsx';
 import PageTitle from '@/components/common/PageTitle';
@@ -48,20 +47,20 @@ const columns: TableProps<PingItemDataType>['columns'] = [
 ];
 
 const IcmpPings = () => {
-  const { data, error, isFetching } = withAuth(() => useQuery({
-    queryKey: ['pings'],
+  const { data, error, isFetching } = useWithAuth({
+    queryKey: ['icmp_pings'],
     queryFn: () => getIcmpPingList(),
     placeholderData: { icmp_pings: [] },
-    select: (d) => d?.["icmp_pings"] ?? [],
+    select: (d) => d?.['icmp_pings'] ?? [],
     staleTime: 5 * 60 * 1000, // 5 minute
-  }));
+  });
   const [pingsToDraw, setPingsToDraw] = useState(data);
 
   useEffect(() => {
     setPingsToDraw((data || []).map((p, idx) => ({
       ...p,
       key: `${idx}-${p.host}`
-    })))
+    })));
   }, [data]);
 
   return (

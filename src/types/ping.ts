@@ -35,6 +35,9 @@ export type CreateIcmpPingFieldType = {
   period: number;
 };
 
+export type EditIcmpPingFieldType = {
+  period: number;
+};
 
 export type CreatePingResponseType = {
   task_id: string;
@@ -42,5 +45,10 @@ export type CreatePingResponseType = {
 
 export type DeletePingResponseType = {
   status: 'cancelled';
+  id: string;
+};
+
+export type EditPingResponseType = {
+  status: 'updated';
   id: string;
 };

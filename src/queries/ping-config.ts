@@ -1,5 +1,10 @@
 import { BE_URL } from '@/utils/consts.ts';
-import {CreatePingResponseType, DeletePingResponseType, PingListResponseType} from '@/types/ping.ts';
+import {
+  CreatePingResponseType,
+  DeletePingResponseType,
+  EditPingResponseType,
+  PingListResponseType
+} from '@/types/ping.ts';
 import {authFetch, getToken} from '@/queries/auth.ts';
 import {AuthFetchType} from '@/types/auth.ts';
 
@@ -30,6 +35,35 @@ export const createIcmpPing = async (
     return await req.response.json();
   } catch (e) {
     console.error('Error on creating ping', e);
+  }
+};
+
+export const editIcmpPing = async (
+  d: {
+    interval: number;
+  },
+  pingId: string,
+  customFetch: (...args: Parameters<typeof fetch>) => Promise<AuthFetchType> = authFetch
+): Promise<EditPingResponseType | undefined> => {
+  try {
+    const req = await customFetch(`${BE_URL}/ping/${pingId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${getToken()}`
+      },
+      body: JSON.stringify({
+        interval: d.interval,
+      }),
+    });
+
+    if (req.unauthorized) {
+      return;
+    }
+
+    return await req.response.json();
+  } catch (e) {
+    console.error('Error on editing ping', e);
   }
 };
 

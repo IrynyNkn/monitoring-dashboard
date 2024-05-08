@@ -1,18 +1,17 @@
 import {useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {UseQueryResult} from '@tanstack/react-query';
+import {UseQueryResult, UseQueryOptions, useQuery} from '@tanstack/react-query';
 
 import authStore from '@/store/authStore.ts';
 import {ExtendedError} from '@/types/auth.ts';
 import {authStorageKey} from '@/utils/consts.ts';
 
-type Props<T> = () => UseQueryResult<T>;
-
-const withAuth = <T,>(queryHook: Props<T>): UseQueryResult<T> => {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const useWithAuth = <TQuery, TResult>(config: UseQueryOptions<TQuery, any, TResult, any[]>): UseQueryResult<TResult> => {
   const navigate = useNavigate();
   const clearAuthData = authStore(s => s.clearAuthData);
 
-  const result = queryHook();
+  const result = useQuery<TQuery, any, TResult, any[]>(config);
 
   useEffect(() => {
     if ((result.error as ExtendedError)?.status === 401) {
@@ -25,4 +24,4 @@ const withAuth = <T,>(queryHook: Props<T>): UseQueryResult<T> => {
   return result;
 };
 
-export default withAuth;
+export default useWithAuth;
