@@ -1,15 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import { Typography } from 'antd';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import dayjs from 'dayjs';
 
 import {PingMetricsResponseType} from '@/types/ping.ts';
+import {dateFormatter} from '@/utils/misc.ts';
 
 import useStyles from './styles.tsx';
-
-const dateFormatter = (date: number) => {
-  return dayjs(date).format('h:mm A'); //  DD/ddd
-};
 
 type Props = {
   data: PingMetricsResponseType | undefined;

@@ -9,7 +9,8 @@ import Monitors from '@/pages/Monitors';
 import Login from '@/pages/Login';
 import Register from '@/pages/Register';
 import IcmpPings from '@/pages/PingsPage/IcmpPings.tsx';
-import KubeDataPage from '../pages/KubeDataPage';
+import KubeDataPage from '@/pages/KubeDataPage';
+import KubeMetricsPage from '@/pages/KubeMetricsPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,6 +19,7 @@ const router = createBrowserRouter(
         <Route index element={<Home />} />
         <Route path="/monitors" element={<Monitors />} />
         <Route path="/kube-data" element={<KubeDataPage />} />
+        <Route path="/kube-metrics/:containerName" element={<KubeMetricsPage />} />
         <Route path="/icmp-pings" element={<IcmpPings />} />
         <Route path="/http-pings" element={<IcmpPings />} />
         <Route

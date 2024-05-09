@@ -1,4 +1,5 @@
 import React, {useMemo} from 'react';
+import {Link} from 'react-router-dom';
 import {Badge, Descriptions, DescriptionsProps, List, Typography} from 'antd';
 import dayjs from 'dayjs';
 
@@ -52,7 +53,7 @@ const PodDetails = ({ details }: Props) => {
               <List.Item.Meta
                 style={{width: '100%'}}
                 avatar={<Badge status={item.ready === 'true' ? 'success' : 'warning'} />}
-                title={item.name}
+                title={<Link to={`/kube-metrics/${item.name}`}>{item.name}</Link>}
               />
               <div style={{width: '100%', marginTop: 10}}>
                 <Typography>

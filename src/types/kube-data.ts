@@ -43,3 +43,16 @@ export type NodesInfoResponseType = {
 export type PodsInfoResponseType = {
   pods: PodInfoType[];
 };
+
+export type ContainerMetricsType = {
+  cpu: number;
+  'cpu_unit': string;
+  memory: number;
+  'memory_unit': string;
+  'pod_name': string;
+  time: number;
+};
+
+export type ContainerMetricsResponseType = {
+  container_metrics: ContainerMetricsType[];
+};
