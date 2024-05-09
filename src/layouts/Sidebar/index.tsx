@@ -27,7 +27,7 @@ const getItem = (
 
 const items: MenuItem[] = [
   getItem('Dashboard', '/', <HomeOutlined />),
-  getItem('Cluster Data', '/cluster-data', <KubernetesOutlined />),
+  getItem('Cluster Data', '/kube-data', <KubernetesOutlined />),
   getItem('Monitors', '/monitors', <MonitorOutlined />),
   getItem('Availability Pings', '/ping', <AimOutlined />, [
     { key: '/icmp-pings', label: 'Icmp Pings'},

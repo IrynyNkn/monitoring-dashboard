@@ -13,10 +13,6 @@ type FieldType = {
 };
 const { Item } = Form;
 
-// const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
-//   console.log('Failed:', errorInfo);
-// };
-
 const LoginPage = () => {
   const navigate = useNavigate();
   const authorize = authStore(s => s.authorize);

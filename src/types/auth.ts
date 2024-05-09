@@ -14,9 +14,11 @@ export type AuthFetchType = {
 };
 
 export class ExtendedError extends Error {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   info: any;
   status: number;
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(message: string, status: number, info?: any) {
     super(message);
     this.info = info;

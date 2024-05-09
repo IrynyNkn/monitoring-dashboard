@@ -1,7 +1,7 @@
 import React from 'react';
 import {Flex, Typography} from 'antd';
 
-import StatusIndicator from '@/components/StatusIndicator';
+import StatusIndicator from '@/components/common/StatusIndicator';
 import {PingMetricsResponseType} from '@/types/ping.ts';
 
 import useStyles from './styles.tsx';
