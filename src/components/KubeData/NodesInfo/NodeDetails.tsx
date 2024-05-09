@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {Badge, Descriptions, List, Typography} from 'antd';
 import type { DescriptionsProps } from 'antd';
 import dayjs from 'dayjs';
@@ -10,7 +10,7 @@ type Props = {
 };
 
 const NodeDetails = ({ details }: Props) => {
-  const detailsList: DescriptionsProps['items'] = [
+  const detailsList: DescriptionsProps['items'] = useMemo(() => [
     {
       key: 'cpu_capacity',
       label: 'Cpu Capacity',
@@ -73,7 +73,7 @@ const NodeDetails = ({ details }: Props) => {
         <List
           itemLayout="horizontal"
           dataSource={Object.entries(details.status).map(([key, value]) => ({ title: `${key}: ${value}`, badge: value === 'True' ? 'processing': 'default' }))}
-          renderItem={(item, index) => (
+          renderItem={(item) => (
             <List.Item>
               <List.Item.Meta
                 avatar={<Badge status={(item.badge as never) || 'default'} />}
@@ -84,7 +84,7 @@ const NodeDetails = ({ details }: Props) => {
         />
       ),
     },
-  ];
+  ], [details]);
 
   return (
     <Descriptions title={`${details.name} info`} layout="vertical" bordered items={detailsList} />

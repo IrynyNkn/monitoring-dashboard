@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {Badge, Descriptions, DescriptionsProps, List, Typography} from 'antd';
 import dayjs from 'dayjs';
 
@@ -9,7 +9,7 @@ type Props = {
 };
 
 const PodDetails = ({ details }: Props) => {
-  const detailsList: DescriptionsProps['items'] = [
+  const detailsList: DescriptionsProps['items'] = useMemo(() => [
     {
       key: 'name',
       label: 'Name',
@@ -47,7 +47,7 @@ const PodDetails = ({ details }: Props) => {
         <List
           itemLayout="horizontal"
           dataSource={details.containers}
-          renderItem={(item, index) => (
+          renderItem={(item) => (
             <List.Item style={{flexDirection: 'column'}}>
               <List.Item.Meta
                 style={{width: '100%'}}
@@ -70,7 +70,7 @@ const PodDetails = ({ details }: Props) => {
         />
       ),
     }
-  ];
+  ], [details]);
   return (
     <Descriptions title={`${details.name} info`} layout="vertical" bordered items={detailsList} />
   );
