@@ -1,20 +1,20 @@
 export enum AlertGroups {
-  icmpPing = 'icmp-ping',
-  httpPing = 'http-ping',
-  kubernetes = 'kubernetes',
+  icmpPing = 'ICMP_PING',
+  httpPing = 'HTTP_PING',
+  kubernetes = 'KUBERNETES',
 }
 
 export enum IcmpPingAlerts {
-  serviceUnavailable = 'service-unavailable',
+  serviceUnavailable = 'SERVICE_UNAVAILABLE',
 }
 
 export enum HttpPingAlerts {
-  healthCheckFailed = 'health-check-failed',
+  healthCheckFailed = 'HEALTH_CHECK_FAILED',
 }
 
 export enum KubernetesAlerts {
-  highCpuUsage = 'high-cpu-usage',
-  highMemoryUsage = 'high-memory-usage',
+  highCpuUsage = 'HIGH_CPU_USAGE',
+  highMemoryUsage = 'HIGH_MEMORY_USAGE',
 }
 
 export type AddAlertFieldType = {
@@ -37,3 +37,12 @@ export const icmpPingAlertsArray: { label: string; key: IcmpPingAlerts }[] = [
 export const httpPingAlertsArray: { label: string; key: HttpPingAlerts }[] = [
   { label: 'Health-Check Failed', key: HttpPingAlerts.healthCheckFailed },
 ];
+
+export type AlertDataType = {
+  id: string;
+  email: string;
+  alertGroup: AlertGroups;
+  alertType: IcmpPingAlerts | HttpPingAlerts | KubernetesAlerts;
+  for: number;
+  repeatRate: number;
+};
