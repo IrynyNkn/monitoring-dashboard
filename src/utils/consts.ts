@@ -44,3 +44,5 @@ export const pingPeriods = [
 /* eslint-disable-next-line */
 export const hostnameRegex = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$|^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)+([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$/;
 
+/* eslint-disable-next-line */
+export const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;

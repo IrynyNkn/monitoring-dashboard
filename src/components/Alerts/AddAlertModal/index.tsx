@@ -1,17 +1,16 @@
 import React from 'react';
-import { useToggle } from 'react-use';
-import { useNavigate } from 'react-router-dom';
-import {Modal, Space, FormProps, Form, message} from 'antd';
+import {useToggle} from 'react-use';
+import {useNavigate} from 'react-router-dom';
+import {Form, FormProps, message, Modal, Space} from 'antd';
 
+import {createAuthFetch} from '@/queries/auth.ts';
 import SuccessButton from '@/components/common/SuccessButton';
-import CreateMonitorForm from '@/components/Monitors/CreateMonitorForm';
-import { createAuthFetch } from '@/queries/auth.ts';
-import { createIcmpPing } from '@/queries/ping-config.ts';
-import {CreateIcmpPingFieldType} from '@/types/ping.ts';
+import {AddAlertFieldType} from '@/types/alerts.ts';
+import AddAlertForm from '@/components/Alerts/AddAlertModal/AddAlertForm.tsx';
 
-const formId = 'create-icmp-ping';
+const formId = 'add-alert';
 
-const CreatePingModal = () => {
+const AddAlertModal = () => {
   const [open, toggleOpen] = useToggle(false);
   const [confirmLoading, toggleConfirmLoading] = useToggle(false);
   const [messageApi, contextHolder] = message.useMessage();
@@ -22,7 +21,7 @@ const CreatePingModal = () => {
   const success = () => {
     messageApi.open({
       type: 'success',
-      content: 'Ping is successfully created',
+      content: 'New alert is successfully added!',
     }).then();
   };
 
@@ -32,39 +31,20 @@ const CreatePingModal = () => {
       content: 'Something went wrong.',
     }).then();
   };
+  const onFinish: FormProps<AddAlertFieldType>['onFinish'] = async (values) => {};
 
-  const onFinish: FormProps<CreateIcmpPingFieldType>['onFinish'] = async (values) => {
-    toggleConfirmLoading();
-    console.log('Values', values);
-
-    const result = await createIcmpPing({
-      host: values.hostname,
-      interval: values.period
-    }, authFetch);
-
-    if (result?.task_id) {
-      toggleOpen();
-      toggleConfirmLoading(false);
-      success();
-      form.resetFields();
-    } else {
-      toggleConfirmLoading(false);
-      error();
-    }
-  };
-
-  return (
+    return (
     <>
       {contextHolder}
       <Space style={{marginBottom: 24}}>
         <SuccessButton type="default" onClick={() => toggleOpen(true)}>
-          Create Ping
+          Add New Alert
         </SuccessButton>
       </Space>
       <Modal
-        title="Create Ping"
+        title="Add Alert"
         open={open}
-        okText="Create"
+        okText="Add"
         okButtonProps={{
           htmlType: 'submit',
           form: formId
@@ -75,7 +55,7 @@ const CreatePingModal = () => {
           form.resetFields();
         }}
       >
-        <CreateMonitorForm
+        <AddAlertForm
           formId={formId}
           onFinish={onFinish}
           formInstance={form}
@@ -85,4 +65,4 @@ const CreatePingModal = () => {
   );
 };
 
-export default CreatePingModal;
+export default AddAlertModal;

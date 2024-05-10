@@ -3,7 +3,7 @@ import { Layout, Menu } from 'antd';
 import type { MenuProps } from 'antd';
 import { useToggle } from 'react-use';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { HomeOutlined, KubernetesOutlined, AimOutlined, NotificationOutlined, MonitorOutlined } from '@ant-design/icons';
+import { HomeOutlined, KubernetesOutlined, AimOutlined, NotificationOutlined } from '@ant-design/icons';
 
 import useStyles from './styles.tsx';
 
@@ -28,12 +28,12 @@ const getItem = (
 const items: MenuItem[] = [
   getItem('Dashboard', '/', <HomeOutlined />),
   getItem('Cluster Data', '/kube-data', <KubernetesOutlined />),
-  getItem('Monitors', '/monitors', <MonitorOutlined />),
+  // getItem('Monitors', '/monitors', <MonitorOutlined />),
   getItem('Availability Pings', '/ping', <AimOutlined />, [
     { key: '/icmp-pings', label: 'Icmp Pings'},
     { key: '/http-pings', label: 'HTTP Pings'}
   ]),
-  getItem('Notifications', '/notifications', <NotificationOutlined />),
+  getItem('Alerts', '/alerts', <NotificationOutlined />),
 ];
 
 const Sidebar = () => {
