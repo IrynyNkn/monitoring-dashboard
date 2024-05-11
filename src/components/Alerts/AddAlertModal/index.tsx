@@ -7,6 +7,8 @@ import {createAuthFetch} from '@/queries/auth.ts';
 import SuccessButton from '@/components/common/SuccessButton';
 import {AddAlertFieldType} from '@/types/alerts.ts';
 import AddAlertForm from '@/components/Alerts/AddAlertModal/AddAlertForm.tsx';
+import {createAlert} from '@/queries/alerts.ts';
+import {useQueryClient} from '@tanstack/react-query';
 
 const formId = 'add-alert';
 
@@ -17,6 +19,7 @@ const AddAlertModal = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const authFetch = createAuthFetch(navigate);
+  const queryClient = useQueryClient();
 
   const success = () => {
     messageApi.open({
@@ -31,7 +34,22 @@ const AddAlertModal = () => {
       content: 'Something went wrong.',
     }).then();
   };
-  const onFinish: FormProps<AddAlertFieldType>['onFinish'] = async (values) => {};
+  const onFinish: FormProps<AddAlertFieldType>['onFinish'] = async (values) => {
+    toggleConfirmLoading();
+
+    const result = await createAlert(values, authFetch);
+
+    if (result?.alert_id) {
+      toggleOpen();
+      await queryClient.invalidateQueries({ queryKey: ['alerts'] });
+      toggleConfirmLoading(false);
+      success();
+      form.resetFields();
+    } else {
+      toggleConfirmLoading(false);
+      error();
+    }
+  };
 
     return (
     <>

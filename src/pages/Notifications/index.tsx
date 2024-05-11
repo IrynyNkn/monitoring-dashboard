@@ -1,45 +1,59 @@
-import React, {useState} from 'react';
-import {Button, Space, Table, TableProps, Typography} from 'antd';
+import React, {useMemo, useState} from 'react';
+import {Button, message, Space, Table, TableProps, Typography} from 'antd';
+import {useNavigate} from 'react-router-dom';
+import {useQueryClient} from '@tanstack/react-query';
 
 import MainLayout from '@/layouts/MainLayout.tsx';
 import PageTitle from '@/components/common/PageTitle';
 import AddAlertModal from '@/components/Alerts/AddAlertModal';
-import {AlertDataType} from '@/types/alerts.ts';
 import EditAlertModal, {EditAlertModalType} from '@/components/Alerts/EditAlertModal';
+import {AlertDataType} from '@/types/alerts.ts';
+import useWithAuth from '@/hooks/useWithAuth.ts';
+import {deleteAlert, getAlerts} from '@/queries/alerts.ts';
+import {createAuthFetch} from '@/queries/auth.ts';
 
 const DEFAULT_EDIT_MODAL = {open: false, alertId: null};
 
 const NotificationsPage = () => {
+  const navigate = useNavigate();
+  const authFetch = createAuthFetch(navigate);
+  const [messageApi, contextHolder] = message.useMessage();
+  const queryClient = useQueryClient();
+
+  const onSuccess = () => {
+    messageApi.open({
+      type: 'success',
+      content: 'Alert is successfully updated',
+    }).then();
+  };
+
+  const onError = () => {
+    messageApi.open({
+      type: 'error',
+      content: 'Something went wrong.',
+    }).then();
+  };
+
+  const onDeleteAlert = async (id: string) => {
+    const r = await deleteAlert(id, authFetch);
+    if (r?.alert_id) {
+      await queryClient.invalidateQueries({ queryKey: ['alerts'] });
+      onSuccess();
+    } else {
+      onError();
+    }
+  };
+
   const [editModal, setEditModal] = useState<EditAlertModalType>(DEFAULT_EDIT_MODAL);
+  const { data, error, isFetching } = useWithAuth({
+    queryKey: ['alerts'],
+    queryFn: () => getAlerts(),
+    placeholderData: { alerts: [] },
+    select: (d) => d?.['alerts'] ?? [],
+    staleTime: 5 * 60 * 1000,
+  });
 
-  const configuredAlerts: AlertDataType[] = [
-    {
-      id: '8fe9e99f-2848-4f30-8ac2-b2ca0bb20490',
-      email: 'user39@example.com',
-      alertGroup: 'KUBERNETES',
-      alertType: 'HIGH_CPU_USAGE',
-      for: 57,
-      repeatRate: 27
-    },
-    {
-      id: '5bee3369-9c64-4d41-acc3-e1a9e3c8b19f',
-      email: 'user54@example.com',
-      alertGroup: 'HTTP_PING',
-      alertType: 'HTTP_404_ERRORS',
-      for: 45,
-      repeatRate: 68
-    },
-    {
-      id: 'ac435983-8000-4f35-ac76-f07f3fd16566',
-      email: 'user10@example.com',
-      alertGroup: 'KUBERNETES',
-      alertType: 'HIGH_CPU_USAGE',
-      for: 21,
-      repeatRate: 103
-    },
-  ] as AlertDataType[];
-
-  const columns: TableProps<AlertDataType>['columns'] = [
+  const columns: TableProps<AlertDataType>['columns'] = useMemo(() => [
     {
       title: 'Email',
       dataIndex: 'email',
@@ -50,25 +64,25 @@ const NotificationsPage = () => {
       title: 'Alert Type',
       dataIndex: 'alertType',
       key: 'alertType',
-      render: (_, p) => <Typography.Text>{p.alertType}</Typography.Text>,
+      render: (_, p) => <Typography.Text>{p.alert_type}</Typography.Text>,
     },
     {
       title: 'Alert Group',
       dataIndex: 'alertGroup',
       key: 'alertGroup',
-      render: (_, p) => <Typography.Text>{p.alertGroup}</Typography.Text>,
+      render: (_, p) => <Typography.Text>{p.alert_group}</Typography.Text>,
     },
     {
       title: 'For (in seconds)',
       dataIndex: 'for',
       key: 'for',
-      render: (_, p) => <Typography.Text>{p.for}</Typography.Text>,
+      render: (_, p) => <Typography.Text>{p.for_}</Typography.Text>,
     },
     {
       title: 'Repeat (in seconds)',
       dataIndex: 'repeatRate',
       key: 'repeatRate',
-      render: (_, p) => <Typography.Text>{p.repeatRate}</Typography.Text>,
+      render: (_, p) => <Typography.Text>{p.repeat_alert}</Typography.Text>,
     },
     {
       title: 'Action',
@@ -76,20 +90,30 @@ const NotificationsPage = () => {
       render: (_, p) => (
         <Space size="middle">
           <Button type="text" onClick={() => setEditModal({open: true, alertId: p.id})}>Edit</Button>
-          <Button type="text" danger>Delete</Button>
+          <Button
+            type="text" 
+            danger
+            onClick={() => onDeleteAlert(p.id)}
+          >Delete</Button>
         </Space>
       ),
     },
-  ];
+  ], []);
+
+  const alerts = useMemo(() => data?.map(a => ({
+    ...a,
+    key: a.id,
+  })), [data]);
 
   return (
     <MainLayout>
+      {contextHolder}
       <PageTitle>Alerts</PageTitle>
       <AddAlertModal />
       <Typography.Title level={4}>Configured Alerts</Typography.Title>
       <Table
         columns={columns}
-        dataSource={configuredAlerts}
+        dataSource={alerts}
       />
       <EditAlertModal modalState={editModal} closeModal={() => setEditModal(DEFAULT_EDIT_MODAL)} />
     </MainLayout>

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Form, FormInstance, Input, Radio, Select, Tooltip, Typography} from 'antd';
+import {Form, FormInstance, Input, InputNumber, Radio, Select, Tooltip, Typography} from 'antd';
 
 import {emailRegex} from '@/utils/consts.ts';
 import {
@@ -69,7 +69,7 @@ const AddAlertForm = ({formId, formInstance, onFinish}: Props) => {
         ]}
         style={{ marginBottom: 8 }}
       >
-        <Input />
+        <InputNumber min={30} style={{ width: '100%' }} />
       </Form.Item>
       <Tooltip
         title={forTooltipInfo}
@@ -85,7 +85,7 @@ const AddAlertForm = ({formId, formInstance, onFinish}: Props) => {
         ]}
         style={{ marginTop: 16 }}
       >
-        <Input />
+        <InputNumber min={1} style={{ width: '100%' }} />
       </Form.Item>
 
       <Form.Item<AddAlertFieldType>

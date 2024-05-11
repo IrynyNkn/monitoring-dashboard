@@ -3,6 +3,10 @@ export const authStorageKey = 'monitoring-auth-storage';
 
 export const pingPeriods = [
   {
+    label: '30sec',
+    value: 30,
+  },
+  {
     label: '1min',
     value: 60,
   },

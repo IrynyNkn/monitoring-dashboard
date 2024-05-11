@@ -6,6 +6,8 @@ import {useNavigate} from 'react-router-dom';
 import {createAuthFetch} from '@/queries/auth.ts';
 import {AddAlertFieldType} from '@/types/alerts.ts';
 import AddAlertForm from '@/components/Alerts/AddAlertModal/AddAlertForm.tsx';
+import {createAlert, updateAlert} from '@/queries/alerts.ts';
+import {useQueryClient} from '@tanstack/react-query';
 
 export type EditAlertModalType = {
   open: boolean;
@@ -25,6 +27,7 @@ const EditAlertModal = ({ modalState, closeModal }: Props) => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const authFetch = createAuthFetch(navigate);
+  const queryClient = useQueryClient();
 
   const success = () => {
     messageApi.open({
@@ -40,7 +43,22 @@ const EditAlertModal = ({ modalState, closeModal }: Props) => {
     }).then();
   };
 
-  const onFinish: FormProps<AddAlertFieldType>['onFinish'] = async (values) => {};
+  const onFinish: FormProps<AddAlertFieldType>['onFinish'] = async (values) => {
+    toggleConfirmLoading();
+
+    const result = await updateAlert(modalState.alertId as string, values, authFetch);
+
+    if (result?.alert_id) {
+      closeModal();
+      await queryClient.invalidateQueries({ queryKey: ['alerts'] });
+      toggleConfirmLoading(false);
+      success();
+      form.resetFields();
+    } else {
+      toggleConfirmLoading(false);
+      error();
+    }
+  };
 
   return (
     <>

@@ -2,6 +2,7 @@ import React from 'react';
 import { useToggle } from 'react-use';
 import { useNavigate } from 'react-router-dom';
 import {Modal, Space, FormProps, Form, message} from 'antd';
+import {useQueryClient} from '@tanstack/react-query';
 
 import SuccessButton from '@/components/common/SuccessButton';
 import CreateMonitorForm from '@/components/Monitors/CreateMonitorForm';
@@ -17,6 +18,7 @@ const CreatePingModal = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const [form] = Form.useForm();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const authFetch = createAuthFetch(navigate);
 
   const success = () => {
@@ -44,6 +46,7 @@ const CreatePingModal = () => {
 
     if (result?.task_id) {
       toggleOpen();
+      await queryClient.invalidateQueries({ queryKey: ['icmp_pings'] });
       toggleConfirmLoading(false);
       success();
       form.resetFields();

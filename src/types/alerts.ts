@@ -41,8 +41,16 @@ export const httpPingAlertsArray: { label: string; key: HttpPingAlerts }[] = [
 export type AlertDataType = {
   id: string;
   email: string;
-  alertGroup: AlertGroups;
-  alertType: IcmpPingAlerts | HttpPingAlerts | KubernetesAlerts;
-  for: number;
-  repeatRate: number;
+  'for_': number;
+  'repeat_alert': number;
+  'alert_group': AlertGroups;
+  'alert_type': IcmpPingAlerts | HttpPingAlerts | KubernetesAlerts;
 };
+
+export type AlertResponseType = {
+  alerts: AlertDataType[];
+};
+
+export type AddAlertResponseType = {
+  alert_id: string;
+}

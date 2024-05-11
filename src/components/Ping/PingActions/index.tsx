@@ -2,7 +2,7 @@ import React from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {useQueryClient} from '@tanstack/react-query';
 import {Flex, Button} from 'antd';
-import {PauseCircleOutlined, DeleteOutlined, ReloadOutlined, EditOutlined} from '@ant-design/icons';
+import {PauseCircleOutlined, DeleteOutlined, ReloadOutlined} from '@ant-design/icons';
 
 import {usePingMetricsById} from '@/hooks/ping-metrics.ts';
 import {createAuthFetch} from '@/queries/auth.ts';
