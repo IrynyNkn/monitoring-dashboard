@@ -4,18 +4,40 @@ export type PingType = {
   'round_trip_time': number,
 };
 
+export type HealthCheckType = Omit<PingType, 'status'> & {
+  status: 0 | 1
+};
+
+export type PingMetricsMetadata = {
+  'ping_id': string,
+  hostname: string,
+  'failed_checks': number,
+  'total_checks': number,
+  'success_rate': number,
+  'last_check_time': string,
+  'first_check_time': string,
+  'successful_checks': number
+}
+
 export type PingMetricsResponseType = {
-  metadata: {
-    'ping_id': string,
-    hostname: string,
-    'failed_checks': number,
-    'total_checks': number,
-    'success_rate': number,
-    'last_check_time': string,
-    'first_check_time': string,
-    'successful_checks': number
-  },
+  metadata: PingMetricsMetadata,
   metrics: PingType[]
+};
+
+export type HealthCheckMetricsMetadata = {
+  'health_check_id': string,
+  'endpoint_url': string;
+  'failed_checks': number,
+  'total_checks': number,
+  'success_rate': number,
+  'last_check_time': string,
+  'first_check_time': string,
+  'successful_checks': number
+}
+
+export type HealthCheckMetricsResponseType = {
+  metadata: HealthCheckMetricsMetadata,
+  metrics: HealthCheckType[]
 };
 
 export type PingItemDataType = {

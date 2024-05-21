@@ -44,7 +44,7 @@ const HealthChecksPage = () => {
       title: 'Endpoint URL',
       dataIndex: 'endpoint',
       key: 'endpoint',
-      render: (_, p) => <Link to={`/health-checks/${p.id}`}>{p.endpoint_url}</Link>,
+      render: (_, p) => <Link to={`/http-health-check/${p.id}`}>{p.endpoint_url}</Link>,
     },
     {
       title: 'Check Interval',
@@ -69,7 +69,7 @@ const HealthChecksPage = () => {
       key: 'action',
       render: (_, p) => (
         <Space size="middle">
-          <Link to={`/health-checks/${p.id}`}><Button type="text">View health checks data</Button></Link>
+          <Link to={`/http-health-check/${p.id}`}><Button type="text">View health checks data</Button></Link>
           <Button type="text" danger onClick={() => onDeletePing(p.id)}>Delete</Button>
         </Space>
       ),

@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react';
 import { Typography } from 'antd';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-import {PingMetricsResponseType} from '@/types/ping.ts';
+import {HealthCheckMetricsResponseType, PingMetricsResponseType} from '@/types/ping.ts';
 import {dateFormatter} from '@/utils/misc.ts';
 
 import useStyles from './styles.tsx';
 
 type Props = {
-  data: PingMetricsResponseType | undefined;
+  data: PingMetricsResponseType | HealthCheckMetricsResponseType | undefined;
 };
 
 const PingDurationLineChart = ({ data }: Props) => {

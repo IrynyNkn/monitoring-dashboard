@@ -37,7 +37,11 @@ const PingPage = () => {
             }
           ]}
         />
-        <PingHead data={data} isFetching={isFetching} />
+        <PingHead
+          icmp_pings_data={data}
+          isFetching={isFetching}
+          dataType={'ICMP_PINGS'}
+        />
         <PingActions />
         <StatisticCards data={data} />
         <PingDurationLineChart data={data} />

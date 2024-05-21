@@ -13,6 +13,7 @@ import KubeDataPage from '@/pages/KubeDataPage';
 import KubeMetricsPage from '@/pages/KubeMetricsPage';
 import NotificationsPage from '@/pages/Notifications';
 import HealthChecksPage from '@/pages/HealthChecksPage';
+import HealthCheckPage from '@/pages/HealthCheckPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +29,9 @@ const router = createBrowserRouter(
         <Route
           path="/ping/:pingId"
           element={<Ping />} />
+        <Route
+          path="/http-health-check/:healthCheckId"
+          element={<HealthCheckPage />} />
       </Route>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />

@@ -2,12 +2,15 @@ import React from 'react';
 import { Card, Col, Row, Statistic } from 'antd';
 import dayjs from 'dayjs';
 
-import {PingMetricsResponseType} from '@/types/ping.ts';
+import {
+  HealthCheckMetricsResponseType,
+  PingMetricsResponseType
+} from '@/types/ping.ts';
 
 import useStyles from './styles';
 
 type Props = {
-  data: PingMetricsResponseType | undefined;
+  data: PingMetricsResponseType | HealthCheckMetricsResponseType | undefined;
 };
 
 const StatisticCards = ({ data }: Props) => {
