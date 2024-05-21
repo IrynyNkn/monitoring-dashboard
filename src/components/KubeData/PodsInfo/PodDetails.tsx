@@ -52,7 +52,7 @@ const PodDetails = ({ details }: Props) => {
             <List.Item style={{flexDirection: 'column'}}>
               <List.Item.Meta
                 style={{width: '100%'}}
-                avatar={<Badge status={item.ready === 'true' ? 'success' : 'warning'} />}
+                avatar={<Badge status={item.ready ? 'success' : 'warning'} />}
                 title={<Link to={`/kube-metrics/${item.name}`}>{item.name}</Link>}
               />
               <div style={{width: '100%', marginTop: 10}}>

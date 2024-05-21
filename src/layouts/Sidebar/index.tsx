@@ -31,7 +31,7 @@ const items: MenuItem[] = [
   // getItem('Monitors', '/monitors', <MonitorOutlined />),
   getItem('Availability Pings', '/ping', <AimOutlined />, [
     { key: '/icmp-pings', label: 'Icmp Pings'},
-    { key: '/http-pings', label: 'HTTP Pings'}
+    { key: '/http-health-checks', label: 'Health Checks'}
   ]),
   getItem('Alerts', '/alerts', <NotificationOutlined />),
 ];

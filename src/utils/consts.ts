@@ -1,5 +1,6 @@
 export const BE_URL = 'http://127.0.0.1:8000/api/v1';
 export const authStorageKey = 'monitoring-auth-storage';
+// export const BE_URL = 'http://127.0.0.1:52840/api/v1';
 
 export const pingPeriods = [
   {
@@ -49,3 +50,6 @@ export const hostnameRegex = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}
 
 /* eslint-disable-next-line */
 export const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+
+/* eslint-disable-next-line */
+export const urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g;

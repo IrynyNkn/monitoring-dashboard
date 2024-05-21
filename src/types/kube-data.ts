@@ -25,8 +25,8 @@ export type PodInfoType = {
     {
       name: string,
       image: string,
-      ready: string,
-      restart_count: 1,
+      ready: boolean,
+      restart_count: number,
       state: {
         [key: string]: {
           [key: string]: string;

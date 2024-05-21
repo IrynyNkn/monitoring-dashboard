@@ -12,6 +12,7 @@ import IcmpPings from '@/pages/PingsPage/IcmpPings.tsx';
 import KubeDataPage from '@/pages/KubeDataPage';
 import KubeMetricsPage from '@/pages/KubeMetricsPage';
 import NotificationsPage from '@/pages/Notifications';
+import HealthChecksPage from '@/pages/HealthChecksPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,7 +24,7 @@ const router = createBrowserRouter(
         <Route path="/alerts" element={<NotificationsPage />} />
         <Route path="/kube-metrics/:containerName" element={<KubeMetricsPage />} />
         <Route path="/icmp-pings" element={<IcmpPings />} />
-        <Route path="/http-pings" element={<IcmpPings />} />
+        <Route path="/http-health-checks" element={<HealthChecksPage />} />
         <Route
           path="/ping/:pingId"
           element={<Ping />} />
