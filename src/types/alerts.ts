@@ -1,7 +1,7 @@
 export enum AlertGroups {
   icmpPing = 'ICMP_PING',
   httpPing = 'HTTP_PING',
-  kubernetes = 'KUBERNETES',
+  // kubernetes = 'KUBERNETES',
 }
 
 export enum IcmpPingAlerts {
@@ -21,8 +21,8 @@ export type AddAlertFieldType = {
   alertGroup: AlertGroups;
   alertType: IcmpPingAlerts | HttpPingAlerts | KubernetesAlerts;
   email: string;
-  for: number;
-  repeatRate: number;
+  for?: number;
+  repeatRate?: number;
 };
 
 export const k8sAlertsArray: { label: string; key: KubernetesAlerts }[] = [

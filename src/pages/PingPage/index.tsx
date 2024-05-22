@@ -11,12 +11,15 @@ import PingDurationLineChart from '@/components/Ping/PingDurationChart';
 import useWithAuth from '@/hooks/useWithAuth.ts';
 import {fetchMetricsByPingId} from '@/queries/ping-config.ts';
 import {PingMetricsResponseType} from '@/types/ping.ts';
+import RangePicker from '@/components/Ping/RangePicker.tsx';
+import authStore from '@/store/authStore.ts';
 
 const PingPage = () => {
+  const { icmpPingTimeRange } = authStore(s => s);
   const { pingId } = useParams<{pingId: string}>();
   const { data, isFetching, refetch } = useWithAuth<PingMetricsResponseType, PingMetricsResponseType>({
     queryKey: ['pingMetrics', pingId],
-    queryFn: () => fetchMetricsByPingId(pingId as string),
+    queryFn: () => fetchMetricsByPingId(pingId as string, icmpPingTimeRange),
     staleTime: 1 * 60 * 1000,
   });
 
@@ -54,6 +57,7 @@ const PingPage = () => {
           isFetching={isFetching}
           pingIsPaused={data?.metadata?.is_paused || false}
         />
+        <RangePicker refetch={refetch} />
         <StatisticCards data={data} />
         <PingDurationLineChart data={data} />
       </Space>

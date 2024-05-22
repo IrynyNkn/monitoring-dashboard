@@ -72,18 +72,18 @@ const NotificationsPage = () => {
       key: 'alertGroup',
       render: (_, p) => <Typography.Text>{p.alert_group}</Typography.Text>,
     },
-    {
-      title: 'For (in seconds)',
-      dataIndex: 'for',
-      key: 'for',
-      render: (_, p) => <Typography.Text>{p.for_}</Typography.Text>,
-    },
-    {
-      title: 'Repeat (in seconds)',
-      dataIndex: 'repeatRate',
-      key: 'repeatRate',
-      render: (_, p) => <Typography.Text>{p.repeat_alert}</Typography.Text>,
-    },
+    // {
+    //   title: 'For (in seconds)',
+    //   dataIndex: 'for',
+    //   key: 'for',
+    //   render: (_, p) => <Typography.Text>{p.for_}</Typography.Text>,
+    // },
+    // {
+    //   title: 'Repeat (in seconds)',
+    //   dataIndex: 'repeatRate',
+    //   key: 'repeatRate',
+    //   render: (_, p) => <Typography.Text>{p.repeat_alert}</Typography.Text>,
+    // },
     {
       title: 'Action',
       key: 'action',

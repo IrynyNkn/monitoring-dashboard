@@ -34,6 +34,7 @@ const AddAlertModal = () => {
       content: 'Something went wrong.',
     }).then();
   };
+
   const onFinish: FormProps<AddAlertFieldType>['onFinish'] = async (values) => {
     toggleConfirmLoading();
 
@@ -51,7 +52,7 @@ const AddAlertModal = () => {
     }
   };
 
-    return (
+  return (
     <>
       {contextHolder}
       <Space style={{marginBottom: 24}}>

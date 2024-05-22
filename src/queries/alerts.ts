@@ -31,8 +31,10 @@ export const createAlert = async (
       },
       body: JSON.stringify({
         email: d.email,
-        'for_': d.for,
-        'repeat_alert': d.repeatRate,
+        'for_': 60,
+        'repeat_alert': 60,
+        // 'for_': d.for,
+        // 'repeat_alert': d.repeatRate,
         'alert_group': d.alertGroup,
         'alert_type': d.alertType
       }),
@@ -62,8 +64,10 @@ export const updateAlert = async (
       },
       body: JSON.stringify({
         email: d.email,
-        'for_': d.for,
-        'repeat_alert': d.repeatRate,
+        'for_': 60,
+        'repeat_alert': 60,
+        // 'for_': d.for,
+        // 'repeat_alert': d.repeatRate,
         'alert_group': d.alertGroup,
         'alert_type': d.alertType
       }),

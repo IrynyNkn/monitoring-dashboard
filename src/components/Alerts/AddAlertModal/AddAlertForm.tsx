@@ -36,10 +36,10 @@ const AddAlertForm = ({formId, formInstance, onFinish}: Props) => {
         setAlertTypes(httpPingAlertsArray);
         formInstance.setFieldValue('alertType', httpPingAlertsArray[0].key);
         return;
-      case AlertGroups.kubernetes:
-        setAlertTypes(k8sAlertsArray);
-        formInstance.setFieldValue('alertType', undefined);
-        return;
+      // case AlertGroups.kubernetes:
+      //   setAlertTypes(k8sAlertsArray);
+      //   formInstance.setFieldValue('alertType', undefined);
+      //   return;
     }
   };
 
@@ -61,32 +61,32 @@ const AddAlertForm = ({formId, formInstance, onFinish}: Props) => {
       >
         <Input />
       </Form.Item>
-      <Form.Item<AddAlertFieldType>
-        name="for"
-        label="For (in seconds)"
-        rules={[
-          { required: true, type: 'number' },
-        ]}
-        style={{ marginBottom: 8 }}
-      >
-        <InputNumber min={30} style={{ width: '100%' }} />
-      </Form.Item>
-      <Tooltip
-        title={forTooltipInfo}
-        placement="topLeft"
-      >
-        <Typography.Link href="#for">Need Help?</Typography.Link>
-      </Tooltip>
-      <Form.Item<AddAlertFieldType>
-        name="repeatRate"
-        label="Repeat Alert (in seconds)"
-        rules={[
-          { required: true, type: 'number' },
-        ]}
-        style={{ marginTop: 16 }}
-      >
-        <InputNumber min={1} style={{ width: '100%' }} />
-      </Form.Item>
+      {/*<Form.Item<AddAlertFieldType>*/}
+      {/*  name="for"*/}
+      {/*  label="For (in seconds)"*/}
+      {/*  rules={[*/}
+      {/*    { required: true, type: 'number' },*/}
+      {/*  ]}*/}
+      {/*  style={{ marginBottom: 8 }}*/}
+      {/*>*/}
+      {/*  <InputNumber min={30} style={{ width: '100%' }} />*/}
+      {/*</Form.Item>*/}
+      {/*<Tooltip*/}
+      {/*  title={forTooltipInfo}*/}
+      {/*  placement="topLeft"*/}
+      {/*>*/}
+      {/*  <Typography.Link href="#for">Need Help?</Typography.Link>*/}
+      {/*</Tooltip>*/}
+      {/*<Form.Item<AddAlertFieldType>*/}
+      {/*  name="repeatRate"*/}
+      {/*  label="Repeat Alert (in seconds)"*/}
+      {/*  rules={[*/}
+      {/*    { required: true, type: 'number' },*/}
+      {/*  ]}*/}
+      {/*  style={{ marginTop: 16 }}*/}
+      {/*>*/}
+      {/*  <InputNumber min={1} style={{ width: '100%' }} />*/}
+      {/*</Form.Item>*/}
 
       <Form.Item<AddAlertFieldType>
         name="alertGroup"
@@ -96,7 +96,7 @@ const AddAlertForm = ({formId, formInstance, onFinish}: Props) => {
         <Radio.Group>
           <Radio.Button value={AlertGroups.icmpPing}>Icmp Ping</Radio.Button>
           <Radio.Button value={AlertGroups.httpPing}>Http Ping</Radio.Button>
-          <Radio.Button value={AlertGroups.kubernetes}>Kubernetes</Radio.Button>
+          {/*<Radio.Button value={AlertGroups.kubernetes}>Kubernetes</Radio.Button>*/}
         </Radio.Group>
       </Form.Item>
 

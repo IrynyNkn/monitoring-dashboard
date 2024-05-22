@@ -129,8 +129,8 @@ export const getIcmpPingList = async (): Promise<PingListResponseType> => {
   return data;
 };
 
-export const fetchMetricsByPingId = async (pingId: string): Promise<PingMetricsResponseType> => {
-  const r = await authFetch(`${BE_URL}/ping/${pingId}`, {
+export const fetchMetricsByPingId = async (pingId: string, timeRange = '-12h'): Promise<PingMetricsResponseType> => {
+  const r = await authFetch(`${BE_URL}/ping/${pingId}?time_range=${timeRange}`, {
     headers: {
       'Authorization': `Token ${getToken()}`
     }

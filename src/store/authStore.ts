@@ -7,11 +7,13 @@ import {authStorageKey} from '@/utils/consts.ts';
 type State = {
   token: string | undefined;
   user: UserType | undefined;
+  icmpPingTimeRange: string;
 };
 
 type Actions = {
   authorize: (d: AuthResponseType) => void,
   clearAuthData: () => void,
+  setIcmpPingTimeRange: (v: string) => void
 };
 
 const authStore = create<State & Actions>()(
@@ -19,6 +21,7 @@ const authStore = create<State & Actions>()(
       (set) => ({
         token: undefined,
         user: undefined,
+        icmpPingTimeRange: '-12h',
         authorize: (d) => set({
           token: d.token,
           user: d.user,
@@ -26,7 +29,8 @@ const authStore = create<State & Actions>()(
         clearAuthData: () => set({
           token: undefined,
           user: undefined,
-        })
+        }),
+        setIcmpPingTimeRange: (d) => set({ icmpPingTimeRange: d })
     }),
     {
       name: authStorageKey
