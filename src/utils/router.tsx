@@ -3,7 +3,6 @@ import {createBrowserRouter, createRoutesFromElements, Route} from 'react-router
 
 import ProtectedRoute from '@/layouts/ProtectedRoute.tsx';
 
-import Home from '@/pages/Home';
 import Ping from '@/pages/PingPage';
 // import Monitors from '@/pages/Monitors';
 import Login from '@/pages/Login';
@@ -14,12 +13,13 @@ import KubeMetricsPage from '@/pages/KubeMetricsPage';
 import NotificationsPage from '@/pages/Notifications';
 import HealthChecksPage from '@/pages/HealthChecksPage';
 import HealthCheckPage from '@/pages/HealthCheckPage';
+import Dashboard from '@/pages/Dashboard';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/">
       <Route element={<ProtectedRoute />}>
-        <Route index element={<Home />} />
+        <Route index element={<Dashboard />} />
         {/*<Route path="/monitors" element={<Monitors />} />*/}
         <Route path="/kube-data" element={<KubeDataPage />} />
         <Route path="/alerts" element={<NotificationsPage />} />

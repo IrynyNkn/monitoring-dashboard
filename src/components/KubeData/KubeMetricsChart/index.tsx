@@ -26,7 +26,7 @@ const KubeMetricsChart = ({data}: Props) => {
   const cpuRadialChartData = useMemo(() => {
     const lastData = data[data.length - 1];
     if (lastData) {
-      return [{cpu: 0.005, name: 'total capacity', fill: '#8884d8'}, {cpu: lastData.cpu, name: 'last use', fill: '#83a6ed'}];
+      return [{cpu: 0.5, name: 'total capacity', fill: '#8884d8'}, {cpu: lastData.cpu, name: 'last use', fill: '#83a6ed'}];
     }
     return [];
   }, [data]);
@@ -35,7 +35,7 @@ const KubeMetricsChart = ({data}: Props) => {
     const lastData = data[data.length - 1];
     if (lastData) {
       return [
-        {memory: 100000, name: 'total capacity', fill: '#a4de6c'},
+        {memory: 1048576, name: 'total capacity', fill: '#a4de6c'},
         {memory: lastData.memory, name: 'last use', fill: '#82ca9d'}
       ];
     }

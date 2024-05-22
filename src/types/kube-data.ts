@@ -36,12 +36,32 @@ export type PodInfoType = {
   ]
 };
 
+export type DeploymentInfoType = {
+  name: string;
+  namespace: string;
+  replicas: number;
+  'available_replicas': number;
+  'unavailable_replicas': number;
+  labels: {[key: string]: string};
+  'created_at': string;
+  conditions: {
+    type: string;
+    status: string;
+    reason: string;
+  }[];
+  selector: {[key: string]: string};
+};
+
 export type NodesInfoResponseType = {
   nodes: NodeInfoType[];
 };
 
 export type PodsInfoResponseType = {
   pods: PodInfoType[];
+};
+
+export type DeploymentsInfoResponseType = {
+  deployments: DeploymentInfoType[];
 };
 
 export type ContainerMetricsType = {

@@ -6,6 +6,7 @@ import MainLayout from '@/layouts/MainLayout.tsx';
 import PageTitle from '@/components/common/PageTitle';
 import NodesInfo from '@/components/KubeData/NodesInfo';
 import PodsInfo from '@/components/KubeData/PodsInfo';
+import DeploymentsInfo from '@/components/KubeData/DeploymentsInfo';
 
 const items: TabsProps['items'] = [
   {
@@ -18,6 +19,11 @@ const items: TabsProps['items'] = [
     label: 'Pods',
     children: <PodsInfo />,
   },
+  {
+    key: 'deployments',
+    label: 'Deployments',
+    children: <DeploymentsInfo />
+  }
 ];
 
 const KubeDataPage = () => {
