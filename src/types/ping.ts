@@ -9,14 +9,16 @@ export type HealthCheckType = Omit<PingType, 'status'> & {
 };
 
 export type PingMetricsMetadata = {
-  'ping_id': string,
-  hostname: string,
-  'failed_checks': number,
-  'total_checks': number,
-  'success_rate': number,
-  'last_check_time': string,
-  'first_check_time': string,
-  'successful_checks': number
+  'ping_id': string;
+  hostname: string;
+  'failed_checks': number;
+  'total_checks': number;
+  'success_rate': number;
+  'last_check_time': string;
+  'first_check_time': string;
+  'successful_checks': number;
+  interval: number;
+  'is_paused': boolean;
 }
 
 export type PingMetricsResponseType = {
@@ -25,14 +27,15 @@ export type PingMetricsResponseType = {
 };
 
 export type HealthCheckMetricsMetadata = {
-  'health_check_id': string,
+  'health_check_id': string;
   'endpoint_url': string;
-  'failed_checks': number,
-  'total_checks': number,
-  'success_rate': number,
-  'last_check_time': string,
-  'first_check_time': string,
-  'successful_checks': number
+  'failed_checks': number;
+  'total_checks': number;
+  'success_rate': number;
+  'last_check_time': string;
+  'first_check_time': string;
+  'successful_checks': number;
+  interval: number;
 }
 
 export type HealthCheckMetricsResponseType = {

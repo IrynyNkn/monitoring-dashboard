@@ -1,5 +1,5 @@
 import React from 'react';
-import {Breadcrumb, Space} from 'antd';
+import {Breadcrumb, Space, Alert} from 'antd';
 import {AimOutlined, HomeOutlined} from '@ant-design/icons';
 import {useParams} from 'react-router-dom';
 
@@ -8,11 +8,17 @@ import PingHead from '@/components/Ping/PingHead';
 import PingActions from '@/components/Ping/PingActions';
 import StatisticCards from '@/components/Ping/StatisticCards';
 import PingDurationLineChart from '@/components/Ping/PingDurationChart';
-import {usePingMetricsById} from '@/hooks/ping-metrics.ts';
+import useWithAuth from '@/hooks/useWithAuth.ts';
+import {fetchMetricsByPingId} from '@/queries/ping-config.ts';
+import {PingMetricsResponseType} from '@/types/ping.ts';
 
 const PingPage = () => {
   const { pingId } = useParams<{pingId: string}>();
-  const { data, isFetching } = usePingMetricsById(pingId || '');
+  const { data, isFetching, refetch } = useWithAuth<PingMetricsResponseType, PingMetricsResponseType>({
+    queryKey: ['pingMetrics', pingId],
+    queryFn: () => fetchMetricsByPingId(pingId as string),
+    staleTime: 1 * 60 * 1000,
+  });
 
   return (
     <MainLayout>
@@ -37,12 +43,17 @@ const PingPage = () => {
             }
           ]}
         />
+        {data?.metadata?.is_paused && <Alert message="Ping is paused" type="warning" showIcon />}
         <PingHead
           icmp_pings_data={data}
           isFetching={isFetching}
           dataType={'ICMP_PINGS'}
         />
-        <PingActions />
+        <PingActions
+          refetch={refetch}
+          isFetching={isFetching}
+          pingIsPaused={data?.metadata?.is_paused || false}
+        />
         <StatisticCards data={data} />
         <PingDurationLineChart data={data} />
       </Space>

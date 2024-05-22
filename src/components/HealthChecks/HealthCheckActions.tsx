@@ -6,16 +6,19 @@ import {DeleteOutlined, ReloadOutlined} from '@ant-design/icons';
 import {useQueryClient} from '@tanstack/react-query';
 
 import {createAuthFetch} from '@/queries/auth.ts';
-import {usePingMetricsById} from '@/hooks/ping-metrics.ts';
 import {deleteHealthCheck} from '@/queries/health-check-config.ts';
 import EditHcModal from '@/components/HealthChecks/EditHCModal.tsx';
 
-const HealthCheckActions = () => {
+type Props = {
+  refetch: () => void;
+  isFetching: boolean;
+};
+
+const HealthCheckActions = ({ refetch, isFetching }: Props) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { healthCheckId } = useParams<{healthCheckId: string}>();
   const authFetch = createAuthFetch(navigate);
-  const { refetch, isFetching, data } = usePingMetricsById(healthCheckId || '');
   const [loading, toggleLoading] = useToggle(false);
 
   const deletePing = async () => {

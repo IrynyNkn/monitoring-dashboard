@@ -81,7 +81,7 @@ export const fetchMetricsByHealthCheckId = async (hcId: string): Promise<HealthC
     headers: {
       'Authorization': `Token ${getToken()}`
     },
-  })
+  });
 
   if (!r.response.ok) {
     throw new Error('Error on fetchMetricsByHealthCheckId');

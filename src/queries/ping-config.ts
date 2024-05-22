@@ -3,7 +3,8 @@ import {
   CreatePingResponseType,
   DeletePingResponseType,
   EditPingResponseType,
-  PingListResponseType
+  PingListResponseType,
+  PingMetricsResponseType,
 } from '@/types/ping.ts';
 import {authFetch, getToken} from '@/queries/auth.ts';
 import {AuthFetchType} from '@/types/auth.ts';
@@ -89,6 +90,30 @@ export const deleteIcmpPing = async (
   }
 };
 
+export const pauseIcmpPing = async (
+  id: string,
+  type: 'pause' | 'resume',
+  customFetch: (...args: Parameters<typeof fetch>) => Promise<AuthFetchType>
+): Promise<Response | undefined> => {
+  try {
+    const req = await customFetch(`${BE_URL}/ping/${type}/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${getToken()}`
+      },
+    });
+
+    if (req.unauthorized) {
+      return;
+    }
+
+    return req.response;
+  } catch (e) {
+    console.error('Error on pauseIcmpPing', e);
+  }
+};
+
 export const getIcmpPingList = async (): Promise<PingListResponseType> => {
   const r = await authFetch(`${BE_URL}/ping/pings`, {
     headers: {
@@ -101,5 +126,20 @@ export const getIcmpPingList = async (): Promise<PingListResponseType> => {
   }
 
   const data: PingListResponseType = await r.response.json();
+  return data;
+};
+
+export const fetchMetricsByPingId = async (pingId: string): Promise<PingMetricsResponseType> => {
+  const r = await authFetch(`${BE_URL}/ping/${pingId}`, {
+    headers: {
+      'Authorization': `Token ${getToken()}`
+    }
+  });
+
+  if (!r.response.ok) {
+    throw new Error('Error on fetchMetricsByPingId');
+  }
+
+  const data: PingMetricsResponseType = await r.response.json();
   return data;
 };

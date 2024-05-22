@@ -1,14 +1,14 @@
 import React from 'react';
 import {useToggle} from 'react-use';
 import {useNavigate, useParams} from 'react-router-dom';
+import {EditOutlined} from '@ant-design/icons';
+import {useQueryClient} from '@tanstack/react-query';
 import {Button, Form, FormProps, message, Modal, Space} from 'antd';
 
 import {createAuthFetch} from '@/queries/auth.ts';
 import {EditIcmpPingFieldType} from '@/types/ping.ts';
 import {editIcmpPing} from '@/queries/ping-config.ts';
-// import SuccessButton from '@/components/common/SuccessButton';
 import EditPingForm from '@/components/Monitors/EditPingForm.tsx';
-import {EditOutlined} from '@ant-design/icons';
 
 const formId = 'edit-icmp-ping';
 
@@ -20,6 +20,7 @@ const EditPingModal = () => {
   const navigate = useNavigate();
   const {pingId} = useParams<{pingId: string}>();
   const authFetch = createAuthFetch(navigate);
+  const queryClient = useQueryClient();
 
   const success = () => {
     messageApi.open({
@@ -43,6 +44,8 @@ const EditPingModal = () => {
     }, pingId as string, authFetch);
 
     if (result?.status === 'updated') {
+      await queryClient.invalidateQueries({ queryKey: ['icmp_pings'] });
+      await queryClient.invalidateQueries({ queryKey: ['pingMetrics', pingId] });
       toggleOpen();
       toggleConfirmLoading(false);
       success();

@@ -22,7 +22,7 @@ const IcmpPings = () => {
     select: (d) => d?.['icmp_pings'] ?? [],
     staleTime: 5 * 60 * 1000, // 5 minute
   });
-  const [pingsToDraw, setPingsToDraw] = useState(data);
+  const [pingsToDraw, setPingsToDraw] = useState<PingItemDataType[]>([]);
 
   useEffect(() => {
     setPingsToDraw((data || []).map((p, idx) => ({
