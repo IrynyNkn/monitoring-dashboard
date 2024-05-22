@@ -18,7 +18,7 @@ const PingPage = () => {
   const { icmpPingTimeRange } = authStore(s => s);
   const { pingId } = useParams<{pingId: string}>();
   const { data, isFetching, refetch } = useWithAuth<PingMetricsResponseType, PingMetricsResponseType>({
-    queryKey: ['pingMetrics', pingId],
+    queryKey: ['pingMetrics', pingId, icmpPingTimeRange],
     queryFn: () => fetchMetricsByPingId(pingId as string, icmpPingTimeRange),
     staleTime: 1 * 60 * 1000,
   });
