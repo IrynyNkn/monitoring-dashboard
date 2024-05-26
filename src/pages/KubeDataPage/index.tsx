@@ -15,15 +15,15 @@ const items: TabsProps['items'] = [
     children: <NodesInfo />,
   },
   {
+    key: 'deployments',
+    label: 'Deployments',
+    children: <DeploymentsInfo />
+  },
+  {
     key: 'pods',
     label: 'Pods',
     children: <PodsInfo />,
   },
-  {
-    key: 'deployments',
-    label: 'Deployments',
-    children: <DeploymentsInfo />
-  }
 ];
 
 const KubeDataPage = () => {

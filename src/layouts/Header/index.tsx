@@ -6,11 +6,13 @@ import { ToolOutlined, UserOutlined } from '@ant-design/icons';
 import useStyles from './styles.tsx';
 import authStore from '@/store/authStore.ts';
 import {authStorageKey} from '@/utils/consts.ts';
+import {useQueryClient} from '@tanstack/react-query';
 
 const { Header: HeaderBase } = Layout;
 const { Title } = Typography;
 
 const Header = () => {
+  const queryClient = useQueryClient();
   const { styles, theme } = useStyles();
   const clearAuthData = authStore(s => s.clearAuthData);
   const navigate = useNavigate();
@@ -19,6 +21,7 @@ const Header = () => {
     clearAuthData();
     localStorage.removeItem(authStorageKey);
     navigate('/login');
+    // queryClient.invalidateQueries().then(() => navigate('/login'));
   };
 
   return (

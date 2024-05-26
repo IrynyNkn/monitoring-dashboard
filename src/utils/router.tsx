@@ -14,6 +14,7 @@ import NotificationsPage from '@/pages/Notifications';
 import HealthChecksPage from '@/pages/HealthChecksPage';
 import HealthCheckPage from '@/pages/HealthCheckPage';
 import Dashboard from '@/pages/Dashboard';
+import ExternalPingPage from '@/pages/ExternalPingPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,6 +27,7 @@ const router = createBrowserRouter(
         <Route path="/kube-metrics/:containerName" element={<KubeMetricsPage />} />
         <Route path="/icmp-pings" element={<IcmpPings />} />
         <Route path="/http-health-checks" element={<HealthChecksPage />} />
+        <Route path="/external-ping" element={<ExternalPingPage />} />
         <Route
           path="/ping/:pingId"
           element={<Ping />} />

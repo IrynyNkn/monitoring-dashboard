@@ -26,7 +26,7 @@ const HealthCheckActions = ({ refetch, isFetching }: Props) => {
     const res = await deleteHealthCheck(healthCheckId || '', authFetch);
     if (res?.status === 'cancelled') {
       await queryClient.invalidateQueries({ queryKey: ['health_checks'] });
-      await queryClient.invalidateQueries({ queryKey: ['health_check_metrics', res.id] });
+      // await queryClient.invalidateQueries({ queryKey: ['health_check_metrics', res.id] });
       navigate('/http-health-checks');
       toggleLoading(false);
     } else {

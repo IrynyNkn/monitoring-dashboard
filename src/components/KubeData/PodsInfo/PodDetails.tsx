@@ -59,7 +59,7 @@ const PodDetails = ({ details }: Props) => {
                 <Typography>
                   <b>Image:</b> {item.image}
                   <br />
-                  <b>Ready:</b> {item.ready}
+                  <b>Ready:</b> {item.ready.toString()}
                   <br />
                   <b>Restart Count:</b> {item.restart_count}
                   <br />

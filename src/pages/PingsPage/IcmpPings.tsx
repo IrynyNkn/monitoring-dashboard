@@ -10,8 +10,10 @@ import PageTitle from '@/components/common/PageTitle';
 import CreatePingModal from '@/components/Monitors/CreatePingModal.tsx';
 import {createAuthFetch} from '@/queries/auth.ts';
 import {useQueryClient} from '@tanstack/react-query';
+import authStore from '@/store/authStore.ts';
 
 const IcmpPings = () => {
+  const user = authStore(s => s.user);
   const navigate = useNavigate();
   const authFetch = createAuthFetch(navigate);
   const queryClient = useQueryClient();

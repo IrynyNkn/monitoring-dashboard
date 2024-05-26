@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import { Layout, Menu } from 'antd';
 import type { MenuProps } from 'antd';
 import { useToggle } from 'react-use';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { HomeOutlined, KubernetesOutlined, AimOutlined, NotificationOutlined } from '@ant-design/icons';
+import {HomeOutlined, KubernetesOutlined, AimOutlined, NotificationOutlined, ClusterOutlined} from '@ant-design/icons';
 
 import useStyles from './styles.tsx';
+import externalPingStore from '@/store/extPingStore.ts';
 
 const { Sider } = Layout;
 
@@ -25,22 +26,31 @@ const getItem = (
   } as MenuItem;
 };
 
-const items: MenuItem[] = [
-  getItem('Dashboard', '/', <HomeOutlined />),
-  getItem('Cluster Data', '/kube-data', <KubernetesOutlined />),
-  // getItem('Monitors', '/monitors', <MonitorOutlined />),
-  getItem('Availability Pings', '/ping', <AimOutlined />, [
-    { key: '/icmp-pings', label: 'Icmp Pings'},
-    { key: '/http-health-checks', label: 'Health Checks'}
-  ]),
-  getItem('Alerts', '/alerts', <NotificationOutlined />),
-];
-
 const Sidebar = () => {
+  const { externalPingEnabled } = externalPingStore(s => s);
   const { styles } = useStyles();
   const navigate = useNavigate();
   const location = useLocation();
   const [collapsed, toggleCollapsed] = useToggle(false);
+
+  const items: MenuItem[] = useMemo(() => {
+    const nav = [
+      getItem('Dashboard', '/', <HomeOutlined />),
+      getItem('Cluster Data', '/kube-data', <KubernetesOutlined />),
+      // getItem('Monitors', '/monitors', <MonitorOutlined />),
+      getItem('Availability Pings', '/ping', <AimOutlined />, [
+        { key: '/icmp-pings', label: 'Icmp Pings'},
+        { key: '/http-health-checks', label: 'Health Checks'}
+      ]),
+      getItem('Alerts', '/alerts', <NotificationOutlined />)
+    ];
+
+    if (externalPingEnabled) {
+      nav.push(getItem('External Ping', '/external-ping', <ClusterOutlined />));
+    }
+
+    return nav;
+  }, [externalPingEnabled]);
 
   return (
     <div className={styles.container}>

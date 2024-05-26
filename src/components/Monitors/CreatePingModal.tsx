@@ -37,7 +37,6 @@ const CreatePingModal = () => {
 
   const onFinish: FormProps<CreateIcmpPingFieldType>['onFinish'] = async (values) => {
     toggleConfirmLoading();
-    console.log('Values', values);
 
     const result = await createIcmpPing({
       host: values.hostname,

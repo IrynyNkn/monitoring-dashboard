@@ -8,16 +8,18 @@ import {EditIcmpPingFieldType} from '@/types/ping.ts';
 import {editHealthCheck} from '@/queries/health-check-config.ts';
 import {EditOutlined} from '@ant-design/icons';
 import EditPingForm from '@/components/Monitors/EditPingForm.tsx';
+import {useQueryClient} from '@tanstack/react-query';
 
 const formId = 'edit-health-check';
 
 const EditHcModal = () => {
+  const queryClient = useQueryClient();
   const [open, toggleOpen] = useToggle(false);
   const [confirmLoading, toggleConfirmLoading] = useToggle(false);
   const [messageApi, contextHolder] = message.useMessage();
   const [form] = Form.useForm();
   const navigate = useNavigate();
-  const {pingId} = useParams<{pingId: string}>();
+  const { healthCheckId } = useParams<{healthCheckId: string}>();
   const authFetch = createAuthFetch(navigate);
 
   const success = () => {
@@ -39,9 +41,11 @@ const EditHcModal = () => {
 
     const result = await editHealthCheck({
       interval: values.period
-    }, pingId as string, authFetch);
+    }, healthCheckId as string, authFetch);
 
     if (result?.status === 'updated') {
+      await queryClient.invalidateQueries({ queryKey: ['health_checks'] });
+      await queryClient.invalidateQueries({ queryKey: ['health_check_metrics', healthCheckId] });
       toggleOpen();
       toggleConfirmLoading(false);
       success();

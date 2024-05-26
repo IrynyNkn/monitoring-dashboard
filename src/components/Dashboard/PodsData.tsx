@@ -7,6 +7,7 @@ import useWithAuth from '@/hooks/useWithAuth.ts';
 import {getContainerMetrics, getPodsInfo} from '@/queries/kube-data.ts';
 import {Button, Card, Flex, Space, Table, TableProps, Typography} from 'antd';
 import {PodInfoType} from '@/types/kube-data.ts';
+import NodesTable from '@/components/Dashboard/NodesTable.tsx';
 
 const columns: TableProps<PodInfoType>['columns'] = [
   {
@@ -89,6 +90,7 @@ const PodsData = () => {
   return (
     <Flex justify="space-between" gap={30}>
       <Space direction={'vertical'}>
+        <Space direction={'vertical'}>
         <Flex justify="space-between" align="center">
           <Typography.Title level={5} style={{ margin: 0 }}>Pods</Typography.Title>
           <Link to="/kube-data"><Button>View More</Button></Link>
@@ -98,9 +100,11 @@ const PodsData = () => {
           dataSource={podsToDraw}
           pagination={false}
         />
+        </Space>
+        <NodesTable />
       </Space>
       <Space direction="vertical">
-        <Typography.Title level={5} style={{ margin: 0 }}>Last Check Metrics</Typography.Title>
+        <Typography.Title level={5} style={{ margin: 0 }}>Last Check Metrics of {containerData?.[containerData.length - 1]?.pod_name}</Typography.Title>
         <Card title="CPU Usage">
           <RadialBarChart
             cx="25%"
