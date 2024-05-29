@@ -1,4 +1,6 @@
 export const BE_URL = import.meta.env.VITE_BE_URL || 'http://127.0.0.1:53037/api/v1';
+export const EXTERNAL_BE_URL = import.meta.env.VITE_EXTERNAL_BE_URL || 'http://127.0.0.1:53037/api/v1';
+
 export const authStorageKey = 'monitoring-auth-storage';
 export const externalPingStorageKey = 'monitoring-external-ping';
 // export const BE_URL = 'http://127.0.0.1:52840/api/v1';

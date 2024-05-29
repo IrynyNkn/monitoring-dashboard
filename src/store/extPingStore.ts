@@ -1,20 +1,22 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import {externalPingStorageKey} from '@/utils/consts.ts';
+import {ExtPingTimeRangeType} from '@/queries/external.ts';
 
 export type GatheredInfoType = {
   status: 0 | 1;
   round_trip_time: number;
+  host: string;
 }
 
 type State = {
   externalPingEnabled: boolean;
-  gatheredExtPingData: GatheredInfoType[];
+  gatheredExtPingData: ExtPingTimeRangeType[];
 };
 
 type Actions = {
   setExternalPingEnabled: (v: boolean) => void;
-  setGatheredExtPingTimeRange: (d: GatheredInfoType) => void;
+  setGatheredExtPingTimeRange: (d: ExtPingTimeRangeType) => void;
 };
 
 const externalPingStore = create<State & Actions>()(
@@ -24,7 +26,7 @@ const externalPingStore = create<State & Actions>()(
     setExternalPingEnabled: (v: boolean) => set({
       externalPingEnabled: v,
     }),
-    setGatheredExtPingTimeRange: (d: GatheredInfoType) => set({
+    setGatheredExtPingTimeRange: (d: ExtPingTimeRangeType) => set({
       gatheredExtPingData: [...get().gatheredExtPingData, d]
     }),
   }), {

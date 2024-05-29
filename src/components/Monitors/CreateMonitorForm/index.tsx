@@ -30,9 +30,9 @@ const CreateMonitorForm = ({ formId, onFinish, formInstance }: Props) => {
       {/*</Form.Item>*/}
       <Form.Item<CreateIcmpPingFieldType>
         name="hostname"
-        label="Hostname"
+        label="Hostname or IP address"
         rules={[
-          { required: true, message: 'Please, enter a valid hostname', pattern: hostnameRegex },
+          { required: true, message: 'Please, enter a valid hostname or ip address', pattern: hostnameRegex },
         ]}
       >
         <Input />

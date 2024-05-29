@@ -6,12 +6,14 @@ import {HealthCheckMetricsResponseType, PingMetricsResponseType} from '@/types/p
 import {dateFormatter} from '@/utils/misc.ts';
 
 import useStyles from './styles.tsx';
+import {ExtPingChartType} from '@/queries/external.ts';
 
 type Props = {
-  data: PingMetricsResponseType | HealthCheckMetricsResponseType | undefined;
+  data: PingMetricsResponseType | HealthCheckMetricsResponseType | ExtPingChartType | undefined;
+  timeSelector?: string;
 };
 
-const PingDurationLineChart = ({ data }: Props) => {
+const PingDurationLineChart = ({ data, timeSelector = 'time' }: Props) => {
   const { styles } = useStyles();
   const [metrics, setMetrics] = useState(data?.metrics);
 
@@ -37,7 +39,7 @@ const PingDurationLineChart = ({ data }: Props) => {
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
-              dataKey="time"
+              dataKey={timeSelector}
               // scale="time"  // adds weird overflow
               tickFormatter={dateFormatter}
               interval="preserveStartEnd"
