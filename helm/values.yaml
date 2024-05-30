@@ -1,0 +1,3 @@
+replicaCount: 1
+backendTargetEnv: "http://127.0.0.1:64842/api/v1"
+externalBackendTargetEnv: "http://127.0.0.1:8000/api/v1"
